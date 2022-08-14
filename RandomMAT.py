@@ -5,6 +5,7 @@ import os
 from fpdf import FPDF
 import datetime
 import pytz
+from tkinter import filedialog
 
 def fibonacci():
     a = random.choice([i for i in range(-70, 70) if i not in [0]])
@@ -312,7 +313,7 @@ def Play():
             currentdate = str(datetime.date.today())
             currenttime = str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).hour) + "-" + str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).minute)+"-"+str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).second)
             currentdatetime= 'QuestionPapers'+currentdate+"_"+currenttime
-            parent_dir = 'C:/Users/user/Desktop/MatQuestionPapers/'
+            parent_dir = filedialog.askdirectory(parent=root,initialdir="/",title='Please select a directory')
             newdir = os.path.join(parent_dir,currentdatetime)
             os.mkdir(newdir)
             newrawfolder = str(newdir)+"/rawdata"
