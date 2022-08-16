@@ -367,6 +367,13 @@ def Play():
                 pdf.output(f"{newdir}/{name}{str(i+1)}.pdf",'F')
 
                 answerkey.close()
+            top = tkinter.Toplevel(root)
+            tkinter.Label(top, text=f"{e1.get()} sheets have been made in Selected Folder").pack()
+
+            def Browse():
+                os.startfile(newdir)
+
+            tkinter.Button(top, text="Browse to Folder", command=Browse).pack()
 
         b1 = tkinter.Button(root2,text="Go",command=clickb1)
         b1.pack()
