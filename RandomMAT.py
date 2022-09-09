@@ -369,6 +369,7 @@ def Play():
                 answerkey.close()
             top = tkinter.Toplevel(root)
             tkinter.Label(top, text=f"{e1.get()} sheets have been made in Selected Folder").pack()
+            print("Done!")
 
             def Browse():
                 os.startfile(newdir)
