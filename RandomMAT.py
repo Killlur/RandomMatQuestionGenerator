@@ -1,5 +1,4 @@
 import random
-import time
 import tkinter
 import os
 from fpdf import FPDF
@@ -106,195 +105,17 @@ def Options(ans):
     return Optionslist,option
 
 
-timelist = [0]
 
-higheststreak = 0
-localstreak = 0
-nofcorrect=0
-nofincorrect=0
-rounds=0
 
 def Play():
-    global higheststreak
-    global localstreak
-    global nofcorrect
-    global nofincorrect
-    global rounds
-    root = tkinter.Tk()
-    root.title("Random Series Generator")
+
+
+
     root2 = tkinter.Tk()
-    root2.title("Random Mat question generator")
-
-    def GameLoop():
-
-
-        timestart = time.time()
-
-        r = random.randrange(6)
-        if r == 0:
-            outlist, answer, explanation = AP()
-
-        elif r == 1:
-            outlist, answer, explanation = GP()
-
-        elif r == 2:
-            outlist, answer, explanation = exponent()
-        elif r == 3:
-            outlist, answer, explanation = doubledifference()
-        elif r == 4:
-            outlist, answer, explanation = tripledifference()
-        elif r == 5:
-            outlist, answer, explanation = fibonacci()
-
-        options,correct = Options(answer)
+    root2.title("Mat Question Generator")
+    root2.geometry('300x150')
 
 
-
-        l1 = tkinter.Label(root, text="RANDOM MAT QUESTION GENERATOR")
-        l1.pack()
-        l3 = tkinter.Label(root, text=f"Question-{rounds+1}")
-        l3.pack()
-        Q = ""
-        for i in outlist:
-            Q+=str(i)+"  ,  "
-        Q = Q.removesuffix("  ,  ")
-        l2 = tkinter.Label(root, text=Q)
-        l2.pack()
-
-        def clickA():
-            global higheststreak
-            global localstreak
-            global nofcorrect
-            global nofincorrect
-            global rounds
-
-            rounds +=1
-            t = time.time() - timestart
-            timelist.append(round(t, 2))
-            for widgets in root.winfo_children():
-                widgets.destroy()
-            if correct.lower() == "a":
-                localstreak +=1
-
-                nofcorrect +=1
-                if localstreak > higheststreak:
-                    higheststreak = localstreak
-
-
-
-            else:
-                localstreak=0
-                nofincorrect += 1
-
-
-            GameLoop()
-
-
-        a = tkinter.Button(root, text=options[0], command=clickA)
-        a.pack()
-
-        def clickB():
-            global higheststreak
-            global localstreak
-            global nofcorrect
-            global nofincorrect
-            global rounds
-            rounds += 1
-            t = time.time() - timestart
-            timelist.append(round(t, 2))
-            for widgets in root.winfo_children():
-                widgets.destroy()
-            if correct.lower() == "b":
-                localstreak += 1
-
-                nofcorrect += 1
-                if localstreak > higheststreak:
-                    higheststreak = localstreak
-
-            else:
-                localstreak = 0
-                nofincorrect += 1
-
-
-            GameLoop()
-
-        b = tkinter.Button(root, text=options[1], command=clickB)
-        b.pack()
-
-        def clickC():
-            global higheststreak
-            global localstreak
-            global nofcorrect
-            global nofincorrect
-            global rounds
-            rounds += 1
-            t = time.time() - timestart
-            timelist.append(round(t, 2))
-            for widgets in root.winfo_children():
-                widgets.destroy()
-            if correct.lower() == "c":
-                localstreak += 1
-
-                nofcorrect += 1
-                if localstreak > higheststreak:
-                    higheststreak = localstreak
-
-            else:
-                localstreak = 0
-                nofincorrect += 1
-
-
-            GameLoop()
-
-        c = tkinter.Button(root, text=options[2], command=clickC)
-        c.pack()
-
-        def clickD():
-            global higheststreak
-            global localstreak
-            global nofcorrect
-            global nofincorrect
-            global rounds
-            rounds += 1
-            t = time.time() - timestart
-            timelist.append(round(t, 2))
-            for widgets in root.winfo_children():
-                widgets.destroy()
-            if correct.lower() == "d":
-                localstreak += 1
-
-                nofcorrect += 1
-                if localstreak > higheststreak:
-                    higheststreak = localstreak
-
-            else:
-                localstreak = 0
-                nofincorrect += 1
-
-
-            GameLoop()
-
-        d = tkinter.Button(root, text=options[3], command=clickD)
-        d.pack()
-
-        t1="Incorrect-",nofincorrect
-        l3 = tkinter.Label(root,text=t1)
-        l3.pack()
-
-        t2 = "Correct-", nofcorrect
-        l4 = tkinter.Label(root, text=t2)
-        l4.pack()
-
-        t3 = "Highest Streak-", higheststreak
-        l5 = tkinter.Label(root, text=t3)
-        l5.pack()
-
-        t4 = "Current streak-", localstreak
-        l5 = tkinter.Label(root, text=t4)
-        l5.pack()
-
-        l6 = tkinter.Label(root, text=f"Time taken for previous question-{timelist.pop()}s")
-        l6.pack()
     def Newfile():
         t1 = tkinter.Label(root2,text="Number of questions in Sheet")
         t1.pack()
@@ -313,7 +134,7 @@ def Play():
             currentdate = str(datetime.date.today())
             currenttime = str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).hour) + "-" + str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).minute)+"-"+str(datetime.datetime.now(pytz.timezone('Asia/Kolkata')).second)
             currentdatetime= 'QuestionPapers'+currentdate+"_"+currenttime
-            parent_dir = filedialog.askdirectory(parent=root,initialdir="/",title='Please select a directory')
+            parent_dir = filedialog.askdirectory(parent=root2,initialdir="/",title='Please select a directory')
             newdir = os.path.join(parent_dir,currentdatetime)
             os.mkdir(newdir)
             newrawfolder = str(newdir)+"/rawdata"
@@ -367,7 +188,7 @@ def Play():
                 pdf.output(f"{newdir}/{name}{str(i+1)}.pdf",'F')
 
                 answerkey.close()
-            top = tkinter.Toplevel(root)
+            top = tkinter.Toplevel(root2)
             tkinter.Label(top, text=f"{e1.get()} sheets have been made in Selected Folder").pack()
             print("Done!")
 
@@ -380,10 +201,9 @@ def Play():
         b1.pack()
 
 
-    GameLoop()
+
     Newfile()
 
-    root.mainloop()
     root2.mainloop()
 
 
